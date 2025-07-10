@@ -9,7 +9,7 @@ public class Response<T>
     public T? Data { get; set; }
     public int StatusCode { get; set; }
 
-    public Response(T? data, string massage)
+    public Response(T? data, string? massage = null)
     {
         IsSuccess = true;
         Massage = massage;
@@ -23,5 +23,15 @@ public class Response<T>
         Massage = massage;
         Data = default;
         StatusCode = (int)statusCode;
+    }
+
+    public static Response<T> Success(T? data = default, string? message = null)
+    {
+        return new Response<T>(data, message);
+    }
+    
+    public static Response<T> Error(HttpStatusCode statusCode, string message)
+    {
+        return new Response<T>(message, statusCode);
     }
 }
