@@ -14,13 +14,12 @@ public class UserService(DataContext context) : IUserService
     public async Task<Response<List<GetUserDTO>>> GetAllUsersAsync()
     {
         var users = await context.Users
-            // .Include(us => us.Posts)
             .Select(us => new GetUserDTO()
             {
                 Id = us.Id,
                 Username = us.Username,
                 Email = us.Email,
-                PostCount = us.Posts.Count()
+                Bio = us.Bio
             }).ToListAsync();
         return new Response<List<GetUserDTO>>(users, "Successfuly");
     }
@@ -37,7 +36,7 @@ public class UserService(DataContext context) : IUserService
         {
             Id = result.Id,
             Username = result.Email,
-            PostCount = result.Posts.Count()
+            Bio = result.Bio
         };
 
         if (user == null)
@@ -52,8 +51,8 @@ public class UserService(DataContext context) : IUserService
         var user = new User
         {
             Username = createUserDTO.Username,
-            Email = createUserDTO.Email
-            // Posts.Count() = createUserDTO.PostCount
+            Email = createUserDTO.Email,
+            Bio = createUserDTO.Bio
         };
 
         await context.Users.AddAsync(user);

@@ -8,7 +8,7 @@ public interface IUserRepository
 {
     Task<PagedResponse<List<User>>> GetAllAsync(UserFilter filter);
     Task<User?> GetAsync(int id);
-    Task<int> CreateAsync(User course);
-    Task<int> UpdateAsync(User course);
-    Task<int> DeleteAsync(User course);
+    Task<int> CreateAsync(User user);
+    Task<int> UpdateAsync(User user);
+    Task<int> DeleteAsync(User user);
 }
